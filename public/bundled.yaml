@@ -13,7 +13,7 @@ tags:
 paths:
   /tasks:
     get:
-      summary: List all /tasks
+      summary: List all tasks
       tags:
         - Tasks
       parameters:
@@ -59,6 +59,34 @@ paths:
                 $ref: '#/components/schemas/Task'
         '400':
           $ref: '#/components/responses/BadRequest'
+  /tasks/{id}:
+    get:
+      summary: Find task with given id
+      tags:
+        - Tasks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Find task with given id
+          schema:
+            type: integer
+            example: 4
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          description: Id Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
 components:
   schemas:
     Task:
@@ -80,6 +108,16 @@ components:
         error:
           type: string
           example: Validation failed
+        details:
+          type: array
+          items:
+            type: string
+    NotFoundError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Not found
         details:
           type: array
           items:

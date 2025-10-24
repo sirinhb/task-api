@@ -1,5 +1,5 @@
 get:
-  summary: List all /tasks
+  summary: List all tasks
   tags:
     - Tasks
   parameters:
